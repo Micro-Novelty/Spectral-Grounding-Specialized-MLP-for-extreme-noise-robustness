@@ -1,0 +1,99 @@
+import numpy
+
+class SpecialWeight:
+    def __init__(self, input_size, output_size, layers=[20, 80, 168, 256, 180]):
+        self.input_size = input_size
+        self.layers = layers
+        self.output_size = output_size
+
+    def eigenvalue_encoder(self, x):
+        eps = 1e-5
+
+        mag = np.mean(np.linalg.norm(x, axis=1))
+    
+        gradient = np.gradient(x)
+        val = [np.linalg.norm(g) for g in gradient]
+        anisotropy = np.std(val) / np.mean(val) + eps
+
+        structured_noise = np.random.uniform(0, mag, size=(len(x), len(x[0])))
+        X = np.vstack((x, structured_noise))
+        X_centered = X - X.mean(axis=0)
+        cov = np.cov(X_centered, rowvar=False)
+        
+        eigenvalues, eigenvectors = np.linalg.eigh(cov)
+        idx = np.argsort(eigenvalues)[::-1]
+        
+        eigenvalues = eigenvalues[idx]
+        energy = np.cumsum(eigenvalues) / np.sum(eigenvalues)
+        k = np.searchsorted(energy, 0.90) + 1     
+
+        K_G = 1.0 / (1.0 + k)
+        mag_G = 1.0 / (1.0 + K_G)
+
+        trA = k / (1.0 - anisotropy) + eps  
+        trB = (1/2 + mag_G) / (1.0 + trA**2)
+        trC = (1/6 + K_G) / (trB**2 - 1.0)
+        return trC, k
+
+
+            
+    def spectral_signature(self, x, k=5):
+        X = x.reshape(x.shape[0], -1)
+        cov = np.cov(X, rowvar=False)
+        eigvals = np.linalg.eigvalsh(cov)
+        eigvals = np.sort(eigvals)[::-1]
+        return eigvals[:k] / (eigvals.sum() + 1e-8)
+    
+    def spectral_similarity(self, a, b):
+        sa = self.spectral_signature(a)
+        sb = self.spectral_signature(b)
+        return np.exp(-np.linalg.norm(sa - sb))
+
+    def AME_Encoder(self, x):
+        X = np.asarray(x)
+        
+        temporal_gradient = np.diff(X, axis=1)
+        grad_energy = np.mean(np.linalg.norm(x, axis=-1))
+        
+        X_mag = np.mean(np.linalg.norm(X, axis=-1))
+        AME =  np.log1p(X_mag) * np.log1p(grad_energy) 
+        return AME
+
+    
+
+    def abstract_weight_encoder(self, x):
+        eps = 1e-5
+        input_size = self.input_size
+        output_size = self.output_size
+
+        rng = np.random.default_rng()
+   
+        gradient = np.gradient(x)
+        val = [np.linalg.norm(v) for v in gradient]
+        anisotropy = np.std(val) / np.mean(val) + eps
+
+        mag = np.mean(np.linalg.norm(x, axis=1))
+
+        trC, k = self.eigenvalue_encoder(x)
+        AME = self.AME_Encoder(x)
+
+        floating_point = np.random.uniform(0, trC, size=x.shape)
+        spectral_similarity = self.spectral_similarity(x, floating_point)
+
+        AEL = 0.3 + spectral_similarity * anisotropy       
+        scaled_anisotropy = anisotropy / (anisotropy + 1.0)
+
+        efficient_distributed_energy = k + AEL * (1.0 - AME)
+        floating_context = rng.uniform(low=0, high=efficient_distributed_energy, size=(input_size, output_size)) 
+
+        return floating_context
+    
+    def weight_encoder(self, x, type=None):
+        floating_context = self.abstract_weight_encoder(x)
+
+        if np.isnan(floating_context).any() or not np.isfinite(floating_context).any():
+            floating_context = np.ones_like(x)
+        
+
+        return floating_context
+    
