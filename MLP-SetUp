@@ -176,6 +176,5 @@ noisy_acc = evaluate(model, X_noisy, y_test)
 print('Accuracy test', train_acc)
 print('test accuracy', test_acc)
 print('Noisy accuracy', noisy_acc)
-print("Predicted classes:")
-print(np.argmax(pred, axis=1))
+
 
