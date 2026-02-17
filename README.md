@@ -48,6 +48,20 @@ Code form:
 
 in where K is a product of eigenvalue energy after binary search, in which the necessary for efficient Categorization, and allows for mapping continous eigenvalue outputs to discrete bins, in technical term, necessary for calculating an efficient index in which a necessary eigenvalue maintains a stable energy in which order of covariance, categorized to int scalar to efficiently be used for eigenvalue ratio for later equations.
 
+
+# Instructions:
+To use AWE You must download or import Python library such as:
+1. Numpy
+2. Sklearn
+Note: Supports python 3.14+
+
+^. Step By Step usage:
+~ download my AWE Encoder, Plug it in python environment along with Any Numpy MLP SetUp
+~ My current MLP Already has the single weight (self.W) plugged with special_weight.weight_encoder(), or you can manually test or add more weights
+~ Create and import make_classfication() to directly test and dont forget to import train_test_split() too.
+~ you're ready to try the weight encoder and see the consistent accuracy. 
+
+
 # Test Results of my Experiement:
 for a convincing results, the data for training i used is train_test_split() in which X, and y, which correlates for input and correct training data set, and random_state is 99.
 ^. 1. Make_classification:
