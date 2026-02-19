@@ -58,6 +58,7 @@ Note: Supports python 3.14+
 ^. Step By Step usage:
 ~ download my AWE Encoder, Plug it in python environment along with Any Numpy MLP SetUp
 ~ My current MLP Already has the single weight (self.W) plugged with special_weight.weight_encoder(), or you can manually test or add more weights
+~ set to learning rate to 0.1 for good balance of learning or lower or higher depends on your needs.
 ~ Create and import make_classfication() to directly test and dont forget to import train_test_split() too.
 ~ you're ready to try the weight encoder and see the consistent accuracy. 
 
@@ -100,7 +101,10 @@ train_test_split(X_noisy, y, test_size=0.9, random_state=99)
 With 50% noise,
 The underlying Accuracy is around 73-76% from epoch 0 to 900 consistently accross 10 different initialization with 5000 samples and 5000 hidden dim parameters.
    
-   
+
+#Limitations:
+
+On Make_circles samples initialization, The underlying consistensy of the model was around 54-63% consistently accross 10 trials from epoch 0 to 900, with 5000 parameters and 1000 samples.
   
 
 
