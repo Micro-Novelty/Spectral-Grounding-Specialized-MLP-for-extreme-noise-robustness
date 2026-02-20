@@ -48,6 +48,22 @@ Code form:
 
 in where K is a product of eigenvalue energy after binary search, in which the necessary for efficient Categorization, and allows for mapping continous eigenvalue outputs to discrete bins, in technical term, necessary for calculating an efficient index in which a necessary eigenvalue maintains a stable energy in which order of covariance, categorized to int scalar to efficiently be used for eigenvalue ratio for later equations.
 
+2. AME Equations (Abstract Modelling Error):
+   AME is a fundamental equations needed for calculating further Abstraction error given the magnitude and the gradient of the input, further modelling a neccessary error given the complexity of input samples. its a necessary component given to calculate a subtract of 1.0 from AME, given AME Range 0 -> 1.0.
+   Code Form:
+```
+    def AME_Encoder(self, x):
+        X = np.asarray(x)
+
+        gradient = np.gradient(x)
+        grad_energy = np.mean(np.linalg.norm(gradient, axis=-1))       
+        X_mag = np.mean(np.linalg.norm(X, axis=-1))
+
+        AME =  np.log1p(X_mag) * np.log1p(grad_energy) 
+        return AME
+```
+
+
 
 # Instructions:
 To use AWE You must download or import Python library such as:
@@ -102,9 +118,17 @@ With 50% noise,
 The underlying Accuracy is around 73-76% from epoch 0 to 900 consistently accross 10 different initialization with 5000 samples and 5000 hidden dim parameters.
    
 
-# Limitations:
+# Small Limitations Features:
 
-On Make_circles samples initialization, The underlying consistensy of the model was around 54-63% consistently accross 10 trials from epoch 0 to 900, with 5000 parameters and 1000 samples.
+On Make_circles samples initialization, The underlying consistensy of the model was around 54-63% consistently accross 10 trials from epoch 0 to 900, with 5000 parameters and 1000 samples and 50% noise given from this code:
+```
+X, y_raw = make_circles(
+    n_samples = 1000, 
+    noise=0.5,  
+    random_state=99)
+```
+
+with noise 10%, The underlying Accuracy Ranging from 73 - 81% with the same amount of parameters and same 1000 samples
   
 
 
