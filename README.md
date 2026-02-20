@@ -140,5 +140,20 @@ X, y_raw = make_circles(
 
 with noise 10%, The underlying Accuracy Ranging from 73 - 81% with the same amount of parameters and same 1000 samples
   
+# Final Conclusive Results
 
+^. With 5 different trials, and each Mean accuracy on each trial, given this data:
+```
+baseline_mean_accuracy_each_trial = np.mean([80, 75, 84, 63, 65])
+AW_mean_accuracy_each_trial = np.mean([91, 96, 95, 97, 95])
+
+delta = AWE - baseline
+print(delta)
+```
+Note: Each vector there represents the actual mean accuracy percentage of Each trial, Where:
+^. 1.  Baseline = Represents The actual mean Accuracy on Regular MLP without AWE.
+^. 2. AWE = Represents the actual mean accuracy on Regular MLP with AWE>
+
+Each MLP Was Given with Make_classification results with 1000 samples, the same as above Make_classification, and 5000 Parameters.
+The Underlying Mean Delta Accuracy is: 21.4%
 
