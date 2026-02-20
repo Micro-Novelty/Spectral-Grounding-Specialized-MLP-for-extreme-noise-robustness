@@ -95,10 +95,17 @@ Note: Supports python 3.14+
 
 ^. Step By Step usage:
 1. ~ download my AWE Encoder, Plug it in python environment along with Any Numpy MLP SetUp
-2. ~ My current MLP Already has the single weight (self.W) plugged with special_weight.weight_encoder(), or you can manually test or add more weights
-3. ~ set to learning rate to 0.1 for good balance of learning or lower or higher depends on your needs.
-4. ~ Create and import make_classfication() to directly test and dont forget to import train_test_split() too.
-5. ~ you're ready to try the weight encoder and see the consistent accuracy. 
+2. If you're using different Dense layer class, you must define the X_train, This is the X samples of the train_test_split(...), inside to the Dense class initialization.
+   Example Initialization of setUp (A must before Trying AWE):
+```
+   X_train, X_test, y_train, y_test = train_test_split(X, y, ....) # where X is Input.
+   Dense = Dense((X_train, input_dim, parameters=5000, ....)) or you can replace X_train with the real Input X.
+ ```
+  
+4. ~ My current MLP Already has the single weight (self.W) plugged with special_weight.weight_encoder(), or you can manually test or add more weights
+5. ~ set to learning rate to 0.1 for good balance of learning or lower or higher depends on your needs.
+6. ~ Create and import make_classfication() to directly test and dont forget to import train_test_split() too.
+7. ~ you're ready to try the weight encoder and see the consistent accuracy. 
 
 
 # Test Results of my Experiment:
