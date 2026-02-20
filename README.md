@@ -106,7 +106,9 @@ train_test_split(X_noisy, y, test_size=0.9, random_state=99)
 ```
 
    the underlying accuracy consistently ranging from 79% - 82% on 1000 samples with 16 hidden_dim. with Noted Results:
-   1. Mean Accuracy Ranging From 92% to 94%
+   1. Mean Accuracy Ranging From 92% to 94% consistently accross 10 trials
+   2. Std Accuracy Ranging from 8% (0.08) to 14% (0.14) consistently accross 10 trials
+   3. Variance Accuracy Ranging from 2% (0.02) to 4% (0.040 consistently accross 10 trials
 
 ^. 2. Make_moons:
    code form:
