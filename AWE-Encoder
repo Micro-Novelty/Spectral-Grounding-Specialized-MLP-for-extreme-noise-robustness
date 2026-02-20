@@ -51,11 +51,11 @@ class SpecialWeight:
 
     def AME_Encoder(self, x):
         X = np.asarray(x)
-        
-        temporal_gradient = np.diff(X, axis=1)
-        grad_energy = np.mean(np.linalg.norm(x, axis=-1))
-        
+
+        gradient = np.gradient(x)
+        grad_energy = np.mean(np.linalg.norm(gradient, axis=-1))       
         X_mag = np.mean(np.linalg.norm(X, axis=-1))
+
         AME =  np.log1p(X_mag) * np.log1p(grad_energy) 
         return AME
 
