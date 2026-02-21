@@ -84,6 +84,7 @@ Explanation:
 mag_G = np.linalg.norm(x, axis=1)
 ``` 
 this part of block is necessary for Normalization of given magnitude of x initialized as mag_G in which mag_G > 0, division of (1.0 + trA**2), indicates that the value of trA**2 increased via sum of +1.0, that has a growth of Non-polynomial meaning it forms a stable sigmoid curve. allowing for better complexity separation mechanism after noise was Filtered.
+
 3. trC: given the second derivative order of (1/6) with K_G, meaning K_G is a "sigmoid" increase of (1.0 + k) projected as such as:
    ```
    K_G = 1.0 / (1.0 + k)
