@@ -1,6 +1,6 @@
 # Spectral-Grounding: Specialized-MLP-for-extreme-noise-robustness
 A Custom specialized MLP Designed to handle noise with a very consistent Accuracy on 1000+ Samples. up to 95% consistent Accuracy on 10 trials (10 different initialization), each trial consist of 900 epoch trainings. Using a Highly Specialized Custom Module Called "Abstract Weight Encoder", or short as AWE.
-
+Note: The MLP tested here doesn't use any kind of Optimizer for Training and Generalization.
 
 # MLP Introduction
 
